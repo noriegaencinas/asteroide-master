@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbk0wm8leupnl"]
+
+[ext_resource type="Texture2D" uid="uid://dwsmipg2o6hxl" path="res://fondo.jpg" id="1_1nyve"]
+[ext_resource type="Script" path="res://main.gd" id="1_dk6iq"]
+[ext_resource type="Texture2D" uid="uid://8kt4ehxul3rv" path="res://1945907.png" id="2_2gilc"]
+[ext_resource type="Script" path="res://player.gd" id="2_kcpl6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eogbd"]
+size = Vector2(44, 125)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_dk6iq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(575.5, 325)
+scale = Vector2(0.384333, 0.322)
+texture = ExtResource("1_1nyve")
+
+[node name="player" type="CharacterBody2D" parent="."]
+position = Vector2(52, -20)
+collision_mask = 4
+script = ExtResource("2_kcpl6")
+
+[node name="Sprite2D" type="Sprite2D" parent="player"]
+position = Vector2(533, 558)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_2gilc")
+
+[node name="BulletSpawn" type="Marker2D" parent="player"]
+position = Vector2(533, 502)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+position = Vector2(534, 555.5)
+shape = SubResource("RectangleShape2D_eogbd")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 1043.0
+offset_top = 32.0
+offset_right = 1115.0
+offset_bottom = 55.0
+text = "Puntos: 0"
+
+[node name="GameOverLabel" type="Label" parent="."]
+offset_left = 558.0
+offset_top = 318.0
+offset_right = 598.0
+offset_bottom = 341.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
